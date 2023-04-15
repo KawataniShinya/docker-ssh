@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  ssh-server:
+    build:
+      context: ./docker/server/
+      dockerfile: Dockerfile
+    container_name: ssh-server
+    platform: linux/x86_64
+    tty: true
+    stdin_open: true
+    ports:
+      - "22:22"
+    environment:
+      TZ: "Asia/Tokyo"
+    volumes:
+      - ./docker/server:/var/www/app
+  
+  ssh-client:
+    build:
+      context: ./docker/client/
+      dockerfile: Dockerfile
+    container_name: ssh-client
+    platform: linux/x86_64
+    tty: true
+    stdin_open: true
+    environment:
+      TZ: "Asia/Tokyo"
+    volumes:
+      - ./docker/client:/var/www/app
